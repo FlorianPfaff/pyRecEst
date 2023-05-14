@@ -1,3 +1,4 @@
+oryx-build-commands.txt
 *.bak
 # No .C code in this library
 *.C
