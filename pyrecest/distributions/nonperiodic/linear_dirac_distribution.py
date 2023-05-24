@@ -14,6 +14,10 @@ class LinearDiracDistribution(AbstractDiracDistribution, AbstractLinearDistribut
     def mean(self):
         return np.average(self.d, weights=self.w, axis=0)
 
+    def set_mean(self, new_mean):
+        mean_offset = new_mean - self.mean
+        self.d += np.reshape(mean_offset, (1, -1))
+
     def covariance(self):
         _, C = LinearDiracDistribution.weighted_samples_to_mean_and_cov(self.d, self.w)
         return C

@@ -18,6 +18,11 @@ class LinearMixture(AbstractMixture, AbstractLinearDistribution):
         AbstractLinearDistribution.__init__(self, dists[0].dim)
         AbstractMixture.__init__(self, dists, w)
 
+    def set_mean(self, new_mean):
+        mean_offset = new_mean - self.mean
+        for dist in self.dists:
+            dist.set_mean(dist.mean + mean_offset)
+
     @property
     def input_dim(self):
         return AbstractLinearDistribution.input_dim.fget(self)

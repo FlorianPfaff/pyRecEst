@@ -2,32 +2,25 @@ import numpy as np
 from pyrecest.distributions.abstract_manifold_specific_distribution import (
     AbstractManifoldSpecificDistribution,
 )
+from pyrecest.distributions import AbstractLinearDistribution
+from typing import Callable, Optional   
 
-from .abstract_filter import AbstractFilter
+from .abstract_filter_type import AbstractFilterType
 
 
-class AbstractParticleFilter(AbstractFilter):
-    def __init__(self, filter_state=None):
-        self.filter_state = filter_state
-
-    def set_state(self, new_state):
-        assert isinstance(
-            new_state, type(self.filter_state)
-        ), "New distribution has to be of the same class as (or inherit from) the previous density."
-        self.filter_state = new_state
-
-    def get_estimate(self):
-        return self.filter_state
+class AbstractParticleFilter(AbstractFilterType):
+    def __init__(self):
+        AbstractFilterType.__init__(self, None)
 
     def predict_identity(self, noise_distribution):
         self.predict_nonlinear(lambda x: x, noise_distribution)
 
     def predict_nonlinear(
         self,
-        f,
-        noise_distribution,
-        function_is_vectorized=True,
-        shift_instead_of_add=True,
+        f: Callable,
+        noise_distribution: Optional[AbstractLinearDistribution] = None,
+        function_is_vectorized: bool = True,
+        shift_instead_of_add: bool = True,
     ):
         assert (
             noise_distribution is None
@@ -45,7 +38,7 @@ class AbstractParticleFilter(AbstractFilter):
                 self.filter_state.d = self.filter_state.d + noise
             else:
                 for i in range(self.filter_state.d.shape[1]):
-                    noise_curr = noise_distribution.set_mode(self.filter_state.d[i, :])
+                    noise_curr = noise_distribution.set_mean(self.filter_state.d[i, :])
                     self.filter_state.d[i, :] = noise_curr.sample(1)
 
     def predict_nonlinear_nonadditive(self, f, samples, weights):
@@ -91,6 +84,6 @@ class AbstractParticleFilter(AbstractFilter):
 
     def association_likelihood(self, likelihood):
         likelihood_val = np.sum(
-            likelihood.pdf(self.get_estimate().d) * self.get_estimate().w
+            likelihood.pdf(self.filter_state().d) * self.filter_state().w
         )
         return likelihood_val

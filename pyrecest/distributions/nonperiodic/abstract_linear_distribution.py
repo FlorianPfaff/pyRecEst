@@ -3,6 +3,7 @@ import numpy as np
 from scipy.integrate import dblquad, nquad, quad
 from scipy.optimize import minimize
 from scipy.stats import chi2
+from abc import abstractmethod
 
 from ..abstract_manifold_specific_distribution import (
     AbstractManifoldSpecificDistribution,
@@ -13,6 +14,10 @@ class AbstractLinearDistribution(AbstractManifoldSpecificDistribution):
     @property
     def input_dim(self):
         return self.dim
+
+    @abstractmethod
+    def set_mean(self):
+        pass
 
     def mean(self):
         return self.mean_numerical()

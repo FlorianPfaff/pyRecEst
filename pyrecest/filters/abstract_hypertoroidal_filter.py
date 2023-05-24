@@ -1,7 +1,7 @@
-from .abstract_filter import AbstractFilter
+from .abstract_manifold_specific_filter import AbstractManifoldSpecificFilter
 
 
-class AbstractHypertoroidalFilter(AbstractFilter):
+class AbstractHypertoroidalFilter(AbstractManifoldSpecificFilter):
     """Abstract base class for filters on the hypertorus."""
 
     def get_point_estimate(self):

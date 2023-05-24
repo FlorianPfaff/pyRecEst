@@ -88,7 +88,7 @@ class AbstractDiracDistribution(AbstractDistributionType):
     def log_likelihood(self, *args):
         raise NotImplementedError("PDF:UNDEFINED, not supported")
 
-    def pdf(self, xs):
+    def pdf(self, _):
         raise NotImplementedError("PDF:UNDEFINED, pdf is not defined")
 
     def integrate_numerically(self, *args):
@@ -131,5 +131,4 @@ class AbstractDiracDistribution(AbstractDistributionType):
         assert is_valid_class
         assert isinstance(n_samples, int) and n_samples > 0
         samples = distribution.sample(n_samples)
-        weights = np.ones(n_samples) / n_samples
-        return cls(samples, weights)
+        return cls(distribution, samples)

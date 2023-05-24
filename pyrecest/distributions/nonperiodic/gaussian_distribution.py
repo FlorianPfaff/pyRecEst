@@ -28,6 +28,9 @@ class GaussianDistribution(AbstractLinearDistribution):
 
         self.C = C
 
+    def set_mean(self, new_mean):
+        self.mu = new_mean
+
     def pdf(self, xs):
         assert (
             self.dim == 1 and xs.ndim <= 1 or xs.shape[-1] == self.dim

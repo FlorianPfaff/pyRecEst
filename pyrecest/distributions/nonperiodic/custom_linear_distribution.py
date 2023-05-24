@@ -39,6 +39,10 @@ class CustomLinearDistribution(
         cd.shift_by = self.shift_by + shift_vector
         return cd
 
+    def set_mean(self, new_mean):
+        mean_offset = new_mean - self.mean
+        self.shift_by*=mean_offset
+
     def pdf(self, xs):
         assert np.size(xs) % self.input_dim == 0
         n_inputs = np.size(xs) // self.input_dim

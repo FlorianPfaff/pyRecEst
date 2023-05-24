@@ -1,8 +1,8 @@
 """ Abstract base class for all filters for Euclidean domains """
-from .abstract_filter import AbstractFilter
+from .abstract_manifold_specific_filter import AbstractManifoldSpecificFilter
 
 
-class AbstractEuclideanFilter(AbstractFilter):
+class AbstractEuclideanFilter(AbstractManifoldSpecificFilter):
     """Abstract base class for all filters for Euclidean domains"""
 
     def get_point_estimate(self):
