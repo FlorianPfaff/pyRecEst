@@ -1,8 +1,8 @@
+import collections
 import copy
 
 import numpy as np
 from beartype import beartype
-import collections
 
 from ..abstract_mixture import AbstractMixture
 from .abstract_hypertoroidal_distribution import AbstractHypertoroidalDistribution

@@ -41,7 +41,9 @@ class AbstractHypertoroidalDistribution(AbstractPeriodicDistribution):
         """
         from custom_hypertoroidal_distribution import CustomHypertoroidalDistribution
 
-        assert shift_by.shape == (self.dim,), "Shift vector must be of the same dimension as the distribution."
+        assert shift_by.shape == (
+            self.dim,
+        ), "Shift vector must be of the same dimension as the distribution."
 
         # Define the shifted PDF
         def shifted_pdf(xs):
@@ -51,7 +53,6 @@ class AbstractHypertoroidalDistribution(AbstractPeriodicDistribution):
         shifted_distribution = CustomHypertoroidalDistribution(shifted_pdf, self.dim)
 
         return shifted_distribution
-
 
     @staticmethod
     @beartype
