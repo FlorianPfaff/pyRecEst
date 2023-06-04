@@ -48,20 +48,18 @@ class HypertoroidalWrappedNormalDistribution(AbstractHypertoroidalDistribution):
 
         return pdf_values
 
-    def shift(
-        self, shift_angles: np.ndarray
-    ) -> "HypertoroidalWrappedNormalDistribution":
+    def shift(self, shift_by) -> "HypertoroidalWrappedNormalDistribution":
         """
         Shift distribution by the given angles
 
-        :param shift_angles: Angles to shift by.
-        :raises AssertionError: If shape of shift_angles does not match the dimension of the distribution.
+        :param shift_by: Angles to shift by.
+        :raises AssertionError: If shape of shift_by does not match the dimension of the distribution.
         :return: Shifted distribution.
         """
-        assert shift_angles.shape == (self.dim,)
+        assert shift_by.shape == (self.dim,)
 
         hd = self
-        hd.mu = np.mod(self.mu + shift_angles, 2 * np.pi)
+        hd.mu = np.mod(self.mu + shift_by, 2 * np.pi)
         return hd
 
     def sample(self, n):

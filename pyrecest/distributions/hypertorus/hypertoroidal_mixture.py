@@ -1,3 +1,4 @@
+import collections
 import copy
 
 import numpy as np
@@ -11,7 +12,7 @@ class HypertoroidalMixture(AbstractMixture, AbstractHypertoroidalDistribution):
     @beartype
     def __init__(
         self,
-        dists: list[AbstractHypertoroidalDistribution],
+        dists: collections.abc.Sequence[AbstractHypertoroidalDistribution],
         w: np.ndarray | None = None,
     ):
         """
@@ -22,6 +23,8 @@ class HypertoroidalMixture(AbstractMixture, AbstractHypertoroidalDistribution):
         """
         AbstractHypertoroidalDistribution.__init__(self, dim=dists[0].dim)
         AbstractMixture.__init__(self, dists, w)
+        # To tell mypy the type of the variable explicitly
+        self.dists: list[AbstractHypertoroidalDistribution] = self.dists
 
     def trigonometric_moment(self, n: int | np.int32 | np.int64) -> np.ndarray:
         """
@@ -33,19 +36,19 @@ class HypertoroidalMixture(AbstractMixture, AbstractHypertoroidalDistribution):
         m = np.zeros(self.dim, dtype=np.complex128)
         for i in range(len(self.dists)):
             # Calculate moments using moments of each component
-            m += self.w[i] * self.dists[i].trigonometric_moment(n)  # type: ignore
+            m += self.w[i] * self.dists[i].trigonometric_moment(n)
         return m
 
-    def shift(self, shift_angles: np.ndarray):
+    def shift(self, shift_by):
         """
         Shifts the distribution by shift_angles.
 
         :param shift_angles: angles to shift by
         :returns: shifted distribution
         """
-        assert np.size(shift_angles) == self.dim
+        assert np.size(shift_by) == self.dim
         hd_shifted = copy.deepcopy(self)
-        hd_shifted.dists = [dist.shift(shift_angles) for dist in hd_shifted.dists]  # type: ignore
+        hd_shifted.dists = [dist.shift(shift_by) for dist in hd_shifted.dists]
         return hd_shifted
 
     def to_circular_mixture(self):

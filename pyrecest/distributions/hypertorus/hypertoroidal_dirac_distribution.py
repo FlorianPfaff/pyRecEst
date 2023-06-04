@@ -82,10 +82,10 @@ class HypertoroidalDiracDistribution(
         return CircularDiracDistribution(self.d[:, remaining_dims], self.w)
 
     @beartype
-    def shift(self, shift_angles: np.ndarray) -> "HypertoroidalDiracDistribution":
-        assert shift_angles.shape[-1] == self.dim
+    def shift(self, shift_by) -> "HypertoroidalDiracDistribution":
+        assert shift_by.shape[-1] == self.dim
         hd = copy.copy(self)
-        hd.d = np.mod(self.d + np.reshape(shift_angles, (1, -1)), 2 * np.pi)
+        hd.d = np.mod(self.d + np.reshape(shift_by, (1, -1)), 2 * np.pi)
         return hd
 
     def entropy(self):

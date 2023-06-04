@@ -39,10 +39,10 @@ class GaussianDistribution(AbstractLinearDistribution):
         ), "Dimension incorrect"
         return mvn.pdf(xs, self.mu, self.C)
 
-    def shift(self, offsets):
-        assert offsets.size == self.dim
+    def shift(self, shift_by):
+        assert shift_by.size == self.dim
         new_gaussian = copy.deepcopy(self)
-        new_gaussian.mu = self.mu + offsets
+        new_gaussian.mu = self.mu + shift_by
         return new_gaussian
 
     def mean(self):

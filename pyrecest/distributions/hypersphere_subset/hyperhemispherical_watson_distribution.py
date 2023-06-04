@@ -55,10 +55,10 @@ class HyperhemisphericalWatsonDistribution(AbstractHyperhemisphericalDistributio
         return self.mu
 
     @beartype
-    def shift(self, offsets: np.ndarray) -> "HyperhemisphericalWatsonDistribution":
+    def shift(self, shift_by) -> "HyperhemisphericalWatsonDistribution":
         assert np.allclose(
             self.mu, np.append(np.zeros(self.dim - 1), 1)
         ), "There is no true shifting for the hyperhemisphere. This is a function for compatibility and only works when mu is [0,0,...,1]."
         dist_shifted = self
-        dist_shifted.mu = offsets
+        dist_shifted.mu = shift_by
         return dist_shifted

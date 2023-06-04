@@ -1,3 +1,5 @@
+import collections
+import copy
 import warnings
 
 import numpy as np
@@ -15,8 +17,13 @@ class AbstractMixture(AbstractDistributionType):
     """
 
     @beartype
-    def __init__(self, dists: list[AbstractManifoldSpecificDistribution], weights=None):
+    def __init__(
+        self,
+        dists: collections.abc.Sequence[AbstractManifoldSpecificDistribution],
+        weights=None,
+    ):
         AbstractDistributionType.__init__(self)
+        dists = copy.deepcopy(dists)  # To prevent modifying the original object
         num_distributions = len(dists)
 
         if weights is None:

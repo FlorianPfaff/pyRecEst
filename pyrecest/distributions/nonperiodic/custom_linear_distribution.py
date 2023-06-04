@@ -33,10 +33,10 @@ class CustomLinearDistribution(
         else:
             self.shift_by = np.zeros(dim)
 
-    def shift(self, shift_vector):
-        assert self.dim == np.size(shift_vector) and shift_vector.ndim <= 1
+    def shift(self, shift_by):
+        assert self.dim == np.size(shift_by) and shift_by.ndim <= 1
         cd = copy.deepcopy(self)
-        cd.shift_by = self.shift_by + shift_vector
+        cd.shift_by = self.shift_by + shift_by
         return cd
 
     def set_mean(self, new_mean):

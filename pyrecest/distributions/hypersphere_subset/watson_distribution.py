@@ -91,8 +91,8 @@ class WatsonDistribution(AbstractHypersphericalDistribution):
         dist.mu = new_mode
         return dist
 
-    def shift(self, offsets):
+    def shift(self, shift_by):
         assert np.array_equal(
             self.mu, np.vstack([np.zeros((self.dim, 1)), 1])
         ), "There is no true shifting for the hypersphere. This is a function for compatibility and only works when mu is [0,0,...,1]."
-        return self.set_mode(offsets)
+        return self.set_mode(shift_by)

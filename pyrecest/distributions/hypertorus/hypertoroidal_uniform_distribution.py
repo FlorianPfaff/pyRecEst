@@ -56,7 +56,7 @@ class HypertoroidalUniformDistribution(
         """
         return 2 * np.pi * np.random.rand(self.dim, n)
 
-    def shift(self, shift_angles: np.ndarray) -> "HypertoroidalUniformDistribution":
+    def shift(self, shift_by) -> "HypertoroidalUniformDistribution":
         """
         Shifts the distribution by shift_angles.
         Since this is a uniform distribution, the shift does not change the distribution.
@@ -64,7 +64,7 @@ class HypertoroidalUniformDistribution(
         :param shift_angles: Angles to shift by
         :returns: Shifted distribution
         """
-        assert shift_angles.shape == (self.dim,)
+        assert shift_by.shape == (self.dim,)
         return self
 
     def integrate(
