@@ -27,33 +27,6 @@ class AbstractHypertoroidalDistribution(AbstractPeriodicDistribution):
             f, dim, integration_boundaries
         )
 
-    def shift(self, shift_by):
-        """
-        Shift the distribution by a given vector.
-
-        :param shift_by: The shift vector. Must be of the same dimension as the distribution.
-        :type shift_by
-
-        :return: The shifted distribution.
-        :rtype: CustomHypertoroidalDistribution
-
-        :raises AssertionError: If the shift vector is not of the same dimension as the distribution.
-        """
-        from custom_hypertoroidal_distribution import CustomHypertoroidalDistribution
-
-        assert shift_by.shape == (
-            self.dim,
-        ), "Shift vector must be of the same dimension as the distribution."
-
-        # Define the shifted PDF
-        def shifted_pdf(xs):
-            return self.pdf((xs + shift_by) % (2 * np.pi))
-
-        # Create the shifted distribution
-        shifted_distribution = CustomHypertoroidalDistribution(shifted_pdf, self.dim)
-
-        return shifted_distribution
-
     @staticmethod
     @beartype
     def integrate_fun_over_domain_part(
