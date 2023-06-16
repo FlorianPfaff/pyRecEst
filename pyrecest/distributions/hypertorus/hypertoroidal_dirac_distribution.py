@@ -25,7 +25,7 @@ class HypertoroidalDiracDistribution(
                 raise ValueError("Cannot determine dimension.")
 
         AbstractHypertoroidalDistribution.__init__(self, dim)
-        AbstractDiracDistribution.__init__(self, np.mod(d, 2 * np.pi), w=w)
+        AbstractDiracDistribution.__init__(self, np.atleast_1d(np.mod(d, 2 * np.pi)), w=w)
 
     def plot(self, *args, **kwargs):
         raise NotImplementedError("Plotting is not implemented")
