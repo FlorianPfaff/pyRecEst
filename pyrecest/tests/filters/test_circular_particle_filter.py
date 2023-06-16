@@ -34,7 +34,7 @@ class CircularParticleFilterTest(unittest.TestCase):
         np.testing.assert_almost_equal(self.dist.d, dist1.d)
         np.testing.assert_almost_equal(self.dist.w, dist1.w)
 
-        self.filter.set_state(VonMisesDistribution(0, 1))
+        self.filter.filter_state = VonMisesDistribution(0, 1)
         self.assertEqual(len(self.dist.d), self.n_particles)
 
     def test_sampling(self):
@@ -111,9 +111,10 @@ class CircularParticleFilterTest(unittest.TestCase):
         )
 
         self.filter.set_state(CircularDiracDistribution(np.arange(0, 1.1, 0.1)))
-        def likelihood(_, x):
+        
+        def likelihood1(_, x):
             return x == 0.5
-        self.filter.update_nonlinear(likelihood, 42)
+        self.filter.update_nonlinear(likelihood1, 42)
         estimation = self.filter.filter_state
         self.assertIsInstance(estimation, CircularDiracDistribution)
         for i in range(len(estimation.d)):
@@ -121,11 +122,12 @@ class CircularParticleFilterTest(unittest.TestCase):
 
         # test update with single parameter likelihood
         np.random.seed(0)
-        self.filter_state = self.dist
+        self.filter.filter_state = self.dist
         wn = WrappedNormalDistribution(1.3, 0.8)
-        def likelihood(x):
+        
+        def likelihood2(x):
             return wn.pdf(-x)
-        self.filter.update_nonlinear(likelihood)
+        self.filter.update_nonlinear(likelihood2)
         dist3c = self.filter_state
         self.assertIsInstance(dist3c, HypertoroidalDiracDistribution)
 
