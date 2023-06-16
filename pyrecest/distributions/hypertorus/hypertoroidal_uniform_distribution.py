@@ -80,8 +80,10 @@ class HypertoroidalUniformDistribution(
         if integration_boundaries is None:
             left = np.zeros((self.dim,))
             right = 2 * np.pi * np.ones((self.dim,))
-        assert left.shape == (self.dim,)
-        assert right.shape == (self.dim,)
+        else:
+            left, right = integration_boundaries
+        assert np.ndim(left) == 0 and self.dim == 1 or left.shape == (self.dim,)
+        assert np.ndim(right) == 0 and self.dim == 1 or right.shape == (self.dim,)
 
         volume = np.prod(right - left)
         return 1 / (2 * np.pi) ** self.dim * volume
