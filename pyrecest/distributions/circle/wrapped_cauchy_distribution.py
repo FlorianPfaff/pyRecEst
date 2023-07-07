@@ -1,5 +1,7 @@
 import numpy as np
+
 from .abstract_circular_distribution import AbstractCircularDistribution
+
 
 class WrappedCauchyDistribution(AbstractCircularDistribution):
     def __init__(self, mu, gamma):
@@ -10,13 +12,18 @@ class WrappedCauchyDistribution(AbstractCircularDistribution):
 
     def pdf(self, xs):
         assert xs.ndim == 1
-        xs = np.mod(xs - self.mu, 2*np.pi)
-        return 1 / (2 * np.pi) * np.sinh(self.gamma) / (np.cosh(self.gamma) - np.cos(xs - self.mu))
+        xs = np.mod(xs - self.mu, 2 * np.pi)
+        return (
+            1
+            / (2 * np.pi)
+            * np.sinh(self.gamma)
+            / (np.cosh(self.gamma) - np.cos(xs - self.mu))
+        )
 
     def cdf(self, xs):
-        
         def coth(x):
             return 1 / np.tanh(x)
+
         assert xs.ndim == 1
         return np.arctan(coth(self.gamma / 2) * np.tan((xs - self.mu) / 2)) / np.pi
 
