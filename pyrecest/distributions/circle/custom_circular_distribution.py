@@ -39,7 +39,9 @@ class CustomCircularDistribution(
         Returns:
             np.ndarray: The value of the pdf at xs.
         """
-        super().pdf(np.mod(xs + self.shift_by, 2 * np.pi))
+        return AbstractCustomDistribution.pdf(
+            self, np.mod(xs + self.shift_by, 2 * np.pi)
+        )
 
     @beartype
     def integrate(self, integration_boundaries: np.ndarray | None = None) -> float:
