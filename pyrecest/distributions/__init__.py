@@ -1,5 +1,5 @@
-import pkgutil
 import importlib
+import pkgutil
 
 # Iterate over each module in the current package
 for loader, module_name, is_pkg in pkgutil.walk_packages(__path__):
@@ -17,13 +17,13 @@ for loader, module_name, is_pkg in pkgutil.walk_packages(__path__):
 # Now __all__ includes all symbols that any of the modules define in their __all__
 __all__ = list(globals().keys())
 # Aliases for brevity and compatibility with libDirectional
-#HypertoroidalWNDistribution = HypertoroidalWrappedNormalDistribution
-#WNDistribution = WrappedNormalDistribution
-#HypertoroidalWDDistribution = HypertoroidalDiracDistribution
-#ToroidalWDDistribution = ToroidalDiracDistribution
-#VMDistribution = VonMisesDistribution
-#WDDistribution = CircularDiracDistribution
-#VMFDistribution = VonMisesFisherDistribution
+# HypertoroidalWNDistribution = HypertoroidalWrappedNormalDistribution
+# WNDistribution = WrappedNormalDistribution
+# HypertoroidalWDDistribution = HypertoroidalDiracDistribution
+# ToroidalWDDistribution = ToroidalDiracDistribution
+# VMDistribution = VonMisesDistribution
+# WDDistribution = CircularDiracDistribution
+# VMFDistribution = VonMisesFisherDistribution
 
 __all__ = [
     "CustomCircularDistribution",
