@@ -108,7 +108,7 @@ jobs:
 
             if [ "$package" == "pyshtools" ]; then
               echo "Building wheel for $package"
-              git clone https://github.com/FlorianPfaff/SHTOOLS.git
+              git clone https://github.com/SHTOOLS/SHTOOLS.git
               cd SHTOOLS
               git checkout meson
               python -m build
