@@ -14,8 +14,12 @@ def scenario_database(scenario, scenario_customization_params=None):
     if scenario == "R2randomWalk":
         scenario_param["manifold_type"] = "Euclidean"
         scenario_param["timesteps"] = 10
-        scenario_param["initial_prior"] = GaussianDistribution(np.zeros(2), 0.5 * np.eye(2))
-        scenario_param["meas_noise"] = GaussianDistribution(np.zeros(2), 0.5 * np.eye(2))
+        scenario_param["initial_prior"] = GaussianDistribution(
+            np.zeros(2), 0.5 * np.eye(2)
+        )
+        scenario_param["meas_noise"] = GaussianDistribution(
+            np.zeros(2), 0.5 * np.eye(2)
+        )
         scenario_param["sys_noise"] = GaussianDistribution(np.zeros(2), 0.5 * np.eye(2))
         scenario_param["gen_next_state_without_noise_is_vectorized"] = True
     else:
