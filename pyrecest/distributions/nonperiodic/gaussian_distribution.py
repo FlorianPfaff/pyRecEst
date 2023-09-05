@@ -1,6 +1,7 @@
 import copy
 
 import numpy as np
+from beartype import beartype
 from scipy.linalg import cholesky
 from scipy.stats import multivariate_normal as mvn
 
@@ -8,7 +9,8 @@ from .abstract_linear_distribution import AbstractLinearDistribution
 
 
 class GaussianDistribution(AbstractLinearDistribution):
-    def __init__(self, mu, C, check_validity=True):
+    @beartype
+    def __init__(self, mu: np.ndarray, C: np.ndarray, check_validity=True):
         AbstractLinearDistribution.__init__(self, dim=np.size(mu))
         assert (
             1 == np.size(mu) == np.size(C) or np.size(mu) == C.shape[0] == C.shape[1]

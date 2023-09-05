@@ -36,6 +36,7 @@ class KalmanFilter(AbstractEuclideanFilter):
     ):  # It can only return GaussianDistribution, allowing the output of tuples just serves to prevent mypy linter warnings
         return GaussianDistribution(self._filter_state.x, self._filter_state.P)
 
+    @beartype
     @filter_state.setter
     def filter_state(
         self, new_state: GaussianDistribution | tuple[np.ndarray, np.ndarray]
@@ -91,33 +92,31 @@ class KalmanFilter(AbstractEuclideanFilter):
         self._filter_state.predict(F=system_matrix, Q=sys_noise_cov, B=B, u=sys_input)
 
     @beartype
-    def update_identity(self, meas: np.ndarray, meas_noise_cov: np.ndarray):
+    def update_identity(self, measurement: np.ndarray, meas_noise_cov: np.ndarray):
         """
         Update the filter state with measurement, assuming identity measurement matrix.
 
-        :param meas: Measurement.
+        :param measurement: Measurement.
         :param meas_noise_cov: Measurement noise covariance.
         """
-        self._filter_state.update(
-            z=meas, R=meas_noise_cov, H=np.eye(np.size(self._filter_state.x))
-        )
-
+        self.update_linear(measurement=measurement, measurement_matrix=np.eye(self.dim), meas_noise_cov=meas_noise_cov)
+        
     @beartype
     def update_linear(
         self,
         measurement: np.ndarray,
         measurement_matrix: np.ndarray,
-        cov_mat_meas: np.ndarray,
+        meas_noise_cov: np.ndarray,
     ):
         """
         Update the filter state with measurement, assuming a linear measurement model.
 
         :param measurement: Measurement.
         :param measurement_matrix: Measurement matrix.
-        :param cov_mat_meas: Covariance matrix for measurement.
+        :param meas_noise_cov: Covariance matrix for measurement.
         """
         self._filter_state.dim_z = measurement_matrix.shape[0]
-        self._filter_state.update(z=measurement, R=cov_mat_meas, H=measurement_matrix)
+        self._filter_state.update(z=measurement, R=meas_noise_cov, H=measurement_matrix)
 
     @beartype
     def get_point_estimate(self) -> np.ndarray:
