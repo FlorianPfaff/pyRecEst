@@ -3,13 +3,9 @@ from pyrecest.filters import HypertoroidalParticleFilter, KalmanFilter
 
 # pylint: disable=too-many-branches
 # pylint: disable=too-many-statements
-def configure_for_filter(
-    filter_param, scenario_param
-):  # Add precalculated_params={} once filters that require it are implemented
-    # Initialize optional output variables
-    likelihood_for_filter = None
-    meas_noise_for_filter = None
-
+def configure_for_filter(filter_param, scenario_param, precalculated_params=None):
+    if precalculated_params is not None:
+        raise NotImplementedError("No filters using precalculated parameters have been implemented so far.")
     # Check for likelihood and measurement noise in scenario parameters
     likelihood_for_filter = scenario_param.get("likelihood", None)
     meas_noise_for_filter = scenario_param.get("meas_noise", None)
@@ -18,14 +14,12 @@ def configure_for_filter(
     filter_name = filter_param["name"]
 
     if filter_name == "kf":
-        # Implement your KalmanFilter class and its methods
         configured_filter = KalmanFilter(scenario_param["initial_prior"])
-
+        meas_noise_for_filter = meas_noise_for_filter.covariance()
         if scenario_param.get("inputs") is None:
 
             def prediction_routine():  # type: ignore
-                return configured_filter.predict_identity(scenario_param["sys_noise"])
-
+                return configured_filter.predict_identity(scenario_param["sys_noise"].covariance())
         else:
 
             def prediction_routine(curr_input):  # type: ignore
