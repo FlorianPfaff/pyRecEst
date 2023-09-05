@@ -6,6 +6,8 @@ def check_and_fix_params(scenario_param):
     scenario_param.setdefault("use_transition", False)
     scenario_param.setdefault("use_likelihood", False)
     scenario_param.setdefault("n_targets", 1)
+    scenario_param.setdefault('apply_sys_noise_times', [True] * (scenario_param['timesteps'] - 1) + [False])
+
 
     # Check for 'timesteps'
     timesteps = scenario_param["timesteps"]
@@ -17,12 +19,8 @@ def check_and_fix_params(scenario_param):
             "n_meas_at_individual_time_step" not in scenario_param
             and "meas_per_step" not in scenario_param
         )
-
-        if "detectionProbability" not in scenario_param:
-            scenario_param["detection_probability"] = 1
-
-        if "clutterRate" not in scenario_param:
-            scenario_param["clutter_rate"] = 0
+        scenario_param.setdefault("detectionProbability", 1)
+        scenario_param.setdefault("clutter_rate", 0)
 
         assert (
             "observed_area" in scenario_param or scenario_param["clutter_rate"] == 0
