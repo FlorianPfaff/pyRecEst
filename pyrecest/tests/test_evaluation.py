@@ -315,7 +315,7 @@ class TestEvalation(unittest.TestCase):
         files = os.listdir(self.tmpdirname.name)
         filename = os.path.join(self.tmpdirname.name, files[0])
         return np.load(filename, allow_pickle=True).item()
-    
+
     def test_file_content(self):
         data = self._load_evaluation_data()
         self._validate_eval_data(**data)
