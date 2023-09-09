@@ -10,6 +10,7 @@ from .iterate_configs_and_runs import iterate_configs_and_runs
 from .perform_predict_update_cycles import perform_predict_update_cycles
 from .scenario_database import scenario_database
 from .start_evaluation import start_evaluation
+from .summarize_filter_results import summarize_filter_results
 
 __all__ = [
     "generate_groundtruth",
@@ -24,4 +25,5 @@ __all__ = [
     "get_axis_label",
     "get_distance_function",
     "get_extract_mean",
+    "summarize_filter_results",
 ]

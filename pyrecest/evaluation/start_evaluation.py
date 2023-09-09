@@ -86,7 +86,7 @@ def start_evaluation(
 
     (
         last_filter_states,  # pylint: disable=R0801
-        run_times,  # pylint: disable=R0801
+        runtimes,  # pylint: disable=R0801
         run_failed,  # pylint: disable=R0801
         groundtruths,  # pylint: disable=R0801
         measurements,  # pylint: disable=R0801
@@ -112,7 +112,7 @@ def start_evaluation(
             "measurements": measurements,
             "run_failed": run_failed,
             "last_filter_states": last_filter_states,
-            "run_times": run_times,
+            "runtimes": runtimes,
             "scenario_param": scenario_param,
             "filter_configs": filter_configs,
         },
@@ -123,7 +123,7 @@ def start_evaluation(
         scenario_param,  # pylint: disable=R0801
         filter_configs,  # pylint: disable=R0801
         last_filter_states,  # pylint: disable=R0801
-        run_times,  # pylint: disable=R0801
+        runtimes,  # pylint: disable=R0801
         run_failed,  # pylint: disable=R0801
         groundtruths,  # pylint: disable=R0801
         measurements,  # pylint: disable=R0801
