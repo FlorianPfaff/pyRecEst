@@ -14,7 +14,7 @@ class GaussianDistribution(AbstractLinearDistribution):
         assert np.ndim(mu) <= 1
         AbstractLinearDistribution.__init__(self, dim=mu.shape[0])
         self.mu = mu
-        
+
         assert (
             1 == np.size(mu) == np.size(C) or np.size(mu) == C.shape[0] == C.shape[1]
         ), "Size of C invalid"
