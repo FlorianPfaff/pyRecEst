@@ -44,14 +44,14 @@ class TestRandomMatrixTracker(unittest.TestCase):
         )
 
     def test_predict(self):
-        dt = 0.1
+        delta_t = 0.1
         Cw = np.array([[0.05, 0.0], [0.0, 0.05]])
         tau = 1.0
 
         system_matrix = np.eye(2)  # 2-D random walk
 
         # Call the predict method
-        self.tracker.predict(dt, Cw, tau, system_matrix)
+        self.tracker.predict(delta_t, Cw, system_matrix, tau)
 
         # Check if state and state covariance are updated correctly
         expected_state = np.array([1.0, 2.0])
