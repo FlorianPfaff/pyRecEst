@@ -52,7 +52,7 @@ class AbstractManifoldSpecificDistribution(ABC):
         :return: The mean of the distribution.
         :rtype: np.ndarray
         """
-        
+
     def set_mode(self, _):
         """
         Set the mode of the distribution
