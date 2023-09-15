@@ -38,7 +38,6 @@ class VonMisesDistribution(AbstractCircularDistribution):
         return p
 
     @staticmethod
-    @beartype
     def besselratio(
         nu: np.number | numbers.Real, kappa: np.number | numbers.Real
     ) -> np.number | numbers.Real:
@@ -93,7 +92,7 @@ class VonMisesDistribution(AbstractCircularDistribution):
         def f(t: float) -> float:
             return VonMisesDistribution.besselratio(v, t) - x
 
-        start = 1
+        start = 1.0
         (kappa,) = fsolve(f, start)
         return kappa
 
