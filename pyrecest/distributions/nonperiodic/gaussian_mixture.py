@@ -3,10 +3,11 @@ import numbers
 import numpy as np
 from beartype import beartype
 
+from .abstract_linear_distribution import AbstractLinearDistribution
 from .gaussian_distribution import GaussianDistribution
 from .linear_dirac_distribution import LinearDiracDistribution
 from .linear_mixture import LinearMixture
-from .abstract_linear_distribution import AbstractLinearDistribution
+
 
 class GaussianMixture(LinearMixture, AbstractLinearDistribution):
     @beartype
