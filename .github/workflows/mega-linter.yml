@@ -137,7 +137,8 @@ jobs:
       - name: Download compatible packages
         if: steps.cache-wheels.outputs.cache-hit != 'true'
         run: |
-          ./myenv/bin/pip download -r requirements-tmp.txt -d ./alpine-wheels
+          ./myenv/bin/pip download --find-links=./alpine-wheels -r requirements-tmp.txt -d ./alpine-wheels
+
         shell: alpine.sh {0}
 
       - name: List available wheels
