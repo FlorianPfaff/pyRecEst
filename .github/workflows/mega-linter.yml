@@ -118,12 +118,6 @@ jobs:
           rm -rf SHTOOLS
         shell: alpine.sh {0}
 
-      - name: Build wheel for healpy
-        if: steps.cache-wheels.outputs.cache-hit != 'true'
-        run: |
-          pip wheel --wheel-dir=./alpine-wheels healpy
-        shell: alpine.sh {0}
-
       - name: Setup venv for ensuring compatibility of packages that follow
         if: steps.cache-wheels.outputs.cache-hit != 'true'
         run: |
@@ -132,7 +126,7 @@ jobs:
 
       - name: Install healpy and pyshtools to ensure compatibility of packages that follow
         run: |
-          ./myenv/bin/pip install --no-index --find-links=./alpine-wheels healpy pyshtools
+          ./myenv/bin/pip install --no-index --find-links=./alpine-wheels pyshtools
         shell: alpine.sh {0}
       
       - name: Install dependencies
