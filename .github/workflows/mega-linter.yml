@@ -124,19 +124,18 @@ jobs:
           python -m venv myenv
         shell: alpine.sh {0}
 
-      - name: Install healpy and pyshtools to ensure compatibility of packages that follow
-        run: |
-          ./myenv/bin/pip install --no-index --find-links=./alpine-wheels pyshtools
+      - name: Install required packages and dependencies
+        if: steps.cache-wheels.outputs.cache-hit != 'true'
+        run: ./myenv/bin/pip install --find-links=./alpine-wheels -r requirements-dev_no_version.txt
         shell: alpine.sh {0}
-      
-      - name: Install dependencies
-        run: ./myenv/bin/pip install requirements-dev_no_version.txt)
         
       - name: Freeze requirements
+        if: steps.cache-wheels.outputs.cache-hit != 'true'
         run: ./myenv/bin/pip freeze > requirements-tmp.txt
         shell: alpine.sh {0}
 
       - name: Download compatible packages
+        if: steps.cache-wheels.outputs.cache-hit != 'true'
         run: |
           ./myenv/bin/pip download -r requirements-tmp.txt -d ./alpine-wheels
         shell: alpine.sh {0}
