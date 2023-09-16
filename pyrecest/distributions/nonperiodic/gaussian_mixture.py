@@ -6,11 +6,12 @@ from beartype import beartype
 from .gaussian_distribution import GaussianDistribution
 from .linear_dirac_distribution import LinearDiracDistribution
 from .linear_mixture import LinearMixture
+from .abstract_linear_distribution import AbstractLinearDistribution
 
-
-class GaussianMixture(LinearMixture):
+class GaussianMixture(LinearMixture, AbstractLinearDistribution):
     @beartype
     def __init__(self, dists: list[GaussianDistribution], w: np.ndarray):
+        AbstractLinearDistribution.__init__(self, dim=dists[0].dim)
         LinearMixture.__init__(self, dists, w)
 
     def mean(self):
