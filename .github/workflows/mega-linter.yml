@@ -138,8 +138,16 @@ jobs:
         if: steps.cache-wheels.outputs.cache-hit != 'true'
         run: |
           ./myenv/bin/pip download --find-links=./alpine-wheels -r requirements-tmp.txt -d ./alpine-wheels
-
         shell: alpine.sh {0}
+
+      - name: Build wheels
+        if: steps.cache-wheels.outputs.cache-hit != 'true'
+        run: |
+          cd ./alpine-wheels
+          for src in *.tar.gz; do
+              ./myenv/bin/pip wheel "$src" --no-deps
+          done
+          cd ..
 
       - name: List available wheels
         run: ls -l ./alpine-wheels
