@@ -71,7 +71,6 @@ jobs:
 
       - name: List workspace
         run: ls -l .
-        shell: alpine.sh {0}
 
       - name: Upgrade pip and install requirements for building
         if: steps.cache-wheels.outputs.cache-hit != 'true'
@@ -109,13 +108,13 @@ jobs:
       - name: Build wheel for pyshtools
         if: steps.cache-wheels.outputs.cache-hit != 'true'
         run: |
-          #git clone https://github.com/FlorianPfaff/SHTOOLS.git
-          #cd SHTOOLS
-          #git checkout meson
-          #python -m build
-          #cd ..
-          #mv SHTOOLS/dist/*.whl ./alpine-wheels/
-          #rm -rf SHTOOLS
+          git clone https://github.com/FlorianPfaff/SHTOOLS.git
+          cd SHTOOLS
+          git checkout meson
+          python -m build
+          cd ..
+          mv SHTOOLS/dist/*.whl ./alpine-wheels/
+          rm -rf SHTOOLS
         shell: alpine.sh {0}
 
       - name: Install required packages and dependencies
