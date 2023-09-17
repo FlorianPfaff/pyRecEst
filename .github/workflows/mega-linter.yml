@@ -145,7 +145,7 @@ jobs:
         run: ls -l ./alpine-wheels
 
       - name: Clean up temporary files (in case they are generated)
-        run: rm -rf CMakeFiles CMakeCache.txt cmake_install.cmake Makefile
+        run: rm -rf myenv CMakeFiles CMakeCache.txt cmake_install.cmake Makefile
 
       # MegaLinter
       - name: MegaLinter
