@@ -13,3 +13,5 @@ DISABLE_LINTERS:
   - JSON_JSONLINT # Disable because there is only .devcontainer.json, for which it throws an unwanted warning
   - MAKEFILE_CHECKMAKE # Not using a Makefile
   - SPELL_LYCHEE # Takes pretty long
+  - ACTION_ACTIONLINT
+  - REPOSITORY_CHECKOV
