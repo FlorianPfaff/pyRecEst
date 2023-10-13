@@ -17,6 +17,7 @@ beartype = "*"
 numpy-quaternion = "*"
 shapely = "*"
 
+
 [tool.poetry.extras]
 healpy_support = ["healpy"]
 
