@@ -1,8 +1,10 @@
 import unittest
 from math import pi
 
+import numpy.testing as npt
+
 # pylint: disable=no-name-in-module,no-member
-from pyrecest.backend import allclose, array, random
+from pyrecest.backend import array, random
 from pyrecest.distributions.hypertorus.hypertoroidal_wrapped_normal_distribution import (
     HypertoroidalWrappedNormalDistribution,
 )
@@ -10,7 +12,7 @@ from pyrecest.distributions.hypertorus.toroidal_wrapped_normal_distribution impo
     ToroidalWrappedNormalDistribution,
 )
 from pyrecest.filters.toroidal_particle_filter import ToroidalParticleFilter
-import numpy.testing as npt
+
 
 class ToroidalParticleFilterTest(unittest.TestCase):
     def test_toroidal_particle_filter(self):

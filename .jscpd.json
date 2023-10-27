@@ -1,5 +1,3 @@
 {
-    "ignore": [
-      "pyrecest/_backend/**"
-    ]
+  "ignore": ["pyrecest/_backend/**"]
 }
