@@ -62,6 +62,7 @@ jobs:
         uses: jirutka/setup-alpine@v1
         with: # cfitsio, py3-pkgconfig, curl-dev, and zlib for healpy
           packages: >
+            bash-completion
             build-base
             python3-dev
             py3-pip
