@@ -95,6 +95,7 @@ jobs:
           #pip install nvidia-pyindex
           #pip install nvidia-cublas
           pip install nvidia-cublas || true
+          pip install numpy || true
           pip install git+https://github.com/SHTOOLS/SHTOOLS@master ||true
         shell: alpine.sh {0}
 
