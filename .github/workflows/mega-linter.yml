@@ -184,14 +184,23 @@ jobs:
         run: |
           cd ./alpine-wheels
 
-          # Check if there are any .tar.gz files
-          if compgen -G "*.tar.gz" > /dev/null; then
-            for src in *.tar.gz; do
-              python -m pip wheel "$src" --no-deps --wheel-dir=./
-              rm "$src"
-            done
-          else
-            echo "No .tar.gz files found, no need to build any wheels."
+          # Set a flag to indicate if any .tar.gz files are found
+          found=0
+          
+          # Loop through all .tar.gz files
+          for src in *.tar.gz; do
+            # Check if the glob gets expanded to existing files.
+            # If not, src will be exactly '*.tar.gz'.
+            [ -e "$src" ] || continue
+            # If we reach this point, at least one file exists
+            found=1
+            python -m pip wheel "$src" --no-deps --wheel-dir=./
+            rm "$src"
+          done
+          
+          # Check if no files were found
+          if [ "$found" -eq 0 ]; then
+            echo "No .tar.gz files found."
           fi
           
           cd ..
