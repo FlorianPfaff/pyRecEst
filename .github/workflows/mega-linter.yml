@@ -86,9 +86,11 @@ jobs:
           pip --version
           pip list
           mkdir -p ~/.pip
-          echo "[global]" > ~/.pip/pip.conf
-          echo "index-url = https://pypi.ngc.nvidia.com" >> ~/.pip/pip.conf
-          echo "extra-index-url = https://pypi.org/simple" >> ~/.pip/pip.conf
+          #echo "[global]" > ~/.pip/pip.conf
+          #echo "index-url = https://pypi.ngc.nvidia.com" >> ~/.pip/pip.conf
+          #echo "extra-index-url = https://pypi.org/simple" >> ~/.pip/pip.conf
+          pip install nvidia-cublas -i https://pypi.ngc.nvidia.com
+          pip install nvidia-cublas-cu12 -i https://pypi.ngc.nvidia.com
           #pip install nvidia-pyindex
           #pip install nvidia-cublas
           pip install nvidia-cublas
