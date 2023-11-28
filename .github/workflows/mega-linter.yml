@@ -147,7 +147,7 @@ jobs:
         run: |
           while read requirement; do
             echo "Installing $requirement..."
-            pip --find-links=./alpine-wheels install "$requirement"
+            pip install "$requirement" --find-links=./alpine-wheels
           done < requirements.txt
 
       - name: Install required packages and dependencies
