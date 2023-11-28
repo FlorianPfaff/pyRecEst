@@ -148,17 +148,17 @@ jobs:
           while read requirement; do
             echo "Installing $requirement..."
             pip install "$requirement" --find-links=./alpine-wheels
-          done < requirements.txt
+          done < requirements-dev.txt
 
-      - name: Install required packages and dependencies
-        if: steps.cache-wheels.outputs.cache-hit != 'true'
-        run: python -m pip install --find-links=./alpine-wheels -r requirements-dev_no_version.txt
-        shell: alpine.sh {0}
+      #- name: Install required packages and dependencies
+      #  if: steps.cache-wheels.outputs.cache-hit != 'true'
+      #  run: python -m pip install --find-links=./alpine-wheels -r requirements-dev_no_version.txt
+      #  shell: alpine.sh {0}
 
-      - name: Print requirements-dev_no_version.txt
-        if: steps.cache-wheels.outputs.cache-hit != 'true'
-        run: cat requirements-dev_no_version.txt
-        shell: alpine.sh {0}
+      #- name: Print requirements-dev_no_version.txt
+      #  if: steps.cache-wheels.outputs.cache-hit != 'true'
+      #  run: cat requirements-dev_no_version.txt
+      #  shell: alpine.sh {0}
 
       - name: Freeze requirements
         if: steps.cache-wheels.outputs.cache-hit != 'true'
