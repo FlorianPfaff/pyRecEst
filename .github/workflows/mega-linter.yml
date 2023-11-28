@@ -175,10 +175,17 @@ jobs:
         if: steps.cache-wheels.outputs.cache-hit != 'true'
         run: |
           cd ./alpine-wheels
-          for src in *.tar.gz; do
-            python -m pip wheel "$src" --no-deps --wheel-dir=./
-            rm "$src"
-          done
+
+          # Check if there are any .tar.gz files
+          if compgen -G "*.tar.gz" > /dev/null; then
+            for src in *.tar.gz; do
+              python -m pip wheel "$src" --no-deps --wheel-dir=./
+              rm "$src"
+            done
+          else
+            echo "No .tar.gz files found, no need to build any wheels."
+          fi
+          
           cd ..
         shell: alpine.sh {0}
 
