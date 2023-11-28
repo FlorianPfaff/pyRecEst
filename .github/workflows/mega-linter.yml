@@ -146,10 +146,14 @@ jobs:
 
       - name: Install Packages Sequentially
         run: |
+          cat requirements-dev_no_version.txt
+          
           while read requirement; do
             echo "Installing $requirement..."
             pip install "$requirement" --find-links=./alpine-wheels
           done < requirements-dev.txt
+
+        shell: alpine.sh {0}
 
       #- name: Install required packages and dependencies
       #  if: steps.cache-wheels.outputs.cache-hit != 'true'
