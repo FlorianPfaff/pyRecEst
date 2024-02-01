@@ -68,6 +68,7 @@ jobs:
             build-base
             python3-dev
             py3-pip
+            jupyter-notebook
             gfortran
             fftw-dev
             git
@@ -109,39 +110,6 @@ jobs:
           sed -i '/^nvidia/d' requirements-dev_no_version.txt
           sed -i '/^triton/d' requirements-dev_no_version.txt
           sed -i '/^jax/d' requirements-dev_no_version.txt
-
-      - name: Run CMake to find LAPACK
-        if: steps.cache-wheels.outputs.cache-hit != 'true'
-        run: |
-          echo "find_package(LAPACK)" > CMakeLists.txt
-          echo "if(LAPACK_FOUND)" >> CMakeLists.txt
-          echo '  message("LAPACK found")' >> CMakeLists.txt
-          echo '  message("LAPACK include dirs: ${LAPACK_INCLUDE_DIRS}")' >> CMakeLists.txt
-          echo '  message("LAPACK libraries: ${LAPACK_LIBRARIES}")' >> CMakeLists.txt
-          echo "else()" >> CMakeLists.txt
-          echo '  message(FATAL_ERROR "LAPACK not found")' >> CMakeLists.txt
-          echo "endif()" >> CMakeLists.txt
-          cmake .
-        shell: alpine.sh {0}
-
-      - name: Run pkg-config to find LAPACK
-        if: steps.cache-wheels.outputs.cache-hit != 'true'
-        run: |
-          pkg-config --libs --cflags lapack || true
-        shell: alpine.sh {0}
-
-      - name: Build wheel for pyshtools
-        if: steps.cache-wheels.outputs.cache-hit != 'true'
-        run: |
-          git clone https://github.com/FlorianPfaff/SHTOOLS.git
-          cd SHTOOLS
-          git checkout meson
-          source "$VENV_PATH/bin/activate"
-          python -m build
-          cd ..
-          mv SHTOOLS/dist/*.whl ./alpine-wheels/
-          rm -rf SHTOOLS
-        shell: alpine.sh {0}
 
       - name: Install Packages Sequentially
         if: steps.cache-wheels.outputs.cache-hit != 'true'
