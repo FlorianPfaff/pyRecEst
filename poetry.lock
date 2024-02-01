@@ -1477,31 +1477,18 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pyshtools"
-version = "4.10.4"
+version = "4.11.10"
 description = "SHTOOLS - Spherical Harmonic Tools"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "pyshtools-4.10.4-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d49f8c963295019fa8a080e97f5ac1ab4c11632f5756553bdc57709c86fee5f4"},
-    {file = "pyshtools-4.10.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5e3cfcbbde9fb2d896688f6c8ed92279337d8415cd1476c48ea46eb18f8a96ec"},
-    {file = "pyshtools-4.10.4-cp310-cp310-win_amd64.whl", hash = "sha256:fe1892d9dfeef323ab14432ee0994fb8799da1755667e0a7dab1f91c30507c4c"},
-    {file = "pyshtools-4.10.4-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:3a10e57ded0e948051094d49048c2ce553d28b0d3b63075077a0fdcab30a50f7"},
-    {file = "pyshtools-4.10.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:565df0dbf7ec705952d88be1e3fe3a7cc054dcb0d7b663e8debccfa7deab2bdc"},
-    {file = "pyshtools-4.10.4-cp311-cp311-win_amd64.whl", hash = "sha256:404f63b9f333c8a0da655d81a5440aa9a29edf68cf8f73e2ab70a933ebb0d350"},
-    {file = "pyshtools-4.10.4-cp37-cp37m-win_amd64.whl", hash = "sha256:981ecfcc405c6899eb97a5629e6259f804203ac624cd37a924f06684a17f6955"},
-    {file = "pyshtools-4.10.4-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:8609b347ed08a68efa0aab52efad194dbe25da17579ca2536906a8caedb1a4d9"},
-    {file = "pyshtools-4.10.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:17dc43427107c75649c8a5b0dc626325d6418f5ce48ba322c8cb9a35ea3c0bb0"},
-    {file = "pyshtools-4.10.4-cp38-cp38-win_amd64.whl", hash = "sha256:6a14591517f100ebbe70159ccec140ea90c0d90cca1ac24d6c4ca3f15b423449"},
-    {file = "pyshtools-4.10.4-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:6d4eb629f425928764f246f9f68ffa39674d3bb89dbeb11e34643920b6ebe3e9"},
-    {file = "pyshtools-4.10.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9abcdd31978df9eca944b264242d6891fdc1c7a86a0761a2ebbf2eef78d68184"},
-    {file = "pyshtools-4.10.4-cp39-cp39-win_amd64.whl", hash = "sha256:4f5adcb5925c533091711f8ec41a5951b108117203e9f707947eea7ac81d3ef4"},
-    {file = "pyshtools-4.10.4.tar.gz", hash = "sha256:4edbee572990603c40f25daf1c8ff5d3429ec1c52343e0118fc2ae28f1d5588a"},
+    {file = "pyshtools-4.11.10.tar.gz", hash = "sha256:d544586f03d508282198bee5221bffa2dddd481b59ff156336ded16f70f72677"},
 ]
 
 [package.dependencies]
 astropy = ">=4.0"
 matplotlib = ">=3.3"
-numpy = ">=1.25.2"
+numpy = "*"
 pooch = ">=1.1"
 requests = "*"
 scipy = ">=0.14.0"
