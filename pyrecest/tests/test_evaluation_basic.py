@@ -65,7 +65,7 @@ class TestEvalationBasics(TestEvalationBase):
         import matplotlib
         from pyrecest.evaluation.plot_results import plot_results
 
-        matplotlib.use("Agg")  # Set the backend to Agg
+        matplotlib.use("SVG")  # Set the backend to TkAgg
         # To generate some results
         self.test_evaluate_for_simulation_config_R2_random_walk()
         files = os.listdir(self.tmpdirname.name)
