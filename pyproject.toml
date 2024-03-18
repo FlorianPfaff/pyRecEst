@@ -28,7 +28,7 @@ torch = "*"
 jax = "*"
 jaxlib = "*"
 autograd = "*"
-autopep8 = "^2.0.2"
+autopep8 = "^2.1.0"
 pytest = "*"
 parameterized = "*"
 
