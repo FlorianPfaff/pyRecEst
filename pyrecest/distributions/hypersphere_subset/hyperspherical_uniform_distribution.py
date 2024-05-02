@@ -14,6 +14,7 @@ class HypersphericalUniformDistribution(
     AbstractHypersphericalDistribution, AbstractHypersphereSubsetUniformDistribution
 ):
     def __init__(self, dim: Union[int, int32, int64]):
+        AbstractHypersphericalDistribution.__init__(self, dim)
         AbstractHypersphereSubsetUniformDistribution.__init__(self, dim)
 
     def pdf(self, xs):

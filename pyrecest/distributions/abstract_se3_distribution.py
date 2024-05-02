@@ -4,6 +4,10 @@ from typing import Union
 
 import matplotlib.pyplot as plt
 import quaternion
+from geomstats.geometry.special_euclidean import SpecialEuclidean
+from geomstats.geometry.product_manifold import ProductManifold
+from geomstats.geometry.euclidean import Euclidean
+from geomstats.geometry.special_orthogonal import SpecialOrthogonal
 
 # pylint: disable=no-name-in-module,no-member
 from pyrecest.backend import column_stack, concatenate, int32, int64
@@ -16,6 +20,9 @@ from .cart_prod.abstract_lin_bounded_cart_prod_distribution import (
 class AbstractSE3Distribution(AbstractLinBoundedCartProdDistribution):
     def __init__(self):
         AbstractLinBoundedCartProdDistribution.__init__(self, 3, 3)  # 3-sphere and R^3
+        # self.manifold = SpecialEuclidean(n=3, point_type='vector')
+        self.manifold = ProductManifold([SpecialOrthogonal(3), Euclidean(3)])
+
 
     @property
     def input_dim(self):

@@ -11,7 +11,7 @@ from pyrecest.distributions.se3_cart_prod_stacked_distribution import (
     SE3CartProdStackedDistribution,
 )
 from pyrecest.distributions.se3_dirac_distribution import SE3DiracDistribution
-
+import numpy.testing as npt
 
 class SE3DiracDistributionTest(unittest.TestCase):
     def test_constructor(self):
@@ -38,7 +38,9 @@ class SE3DiracDistributionTest(unittest.TestCase):
                 ),
             ]
         )
-        SE3DiracDistribution.from_distribution(cpsd, 100)
+        dirac_dist = SE3DiracDistribution.from_distribution(cpsd, 100)
+        npt.assert_allclose(dirac_dist.mean(), cpsd.mean())
+        
 
 
 if __name__ == "__main__":

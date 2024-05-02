@@ -8,6 +8,7 @@ from .cart_prod.lin_hypersphere_cart_prod_dirac_distribution import (
 from .hypersphere_subset.hyperhemispherical_dirac_distribution import (
     HyperhemisphericalDiracDistribution,
 )
+from geomstats.learning.frechet_mean import FrechetMean
 
 
 class SE3DiracDistribution(
@@ -29,8 +30,7 @@ class SE3DiracDistribution(
         :return: The mean of the distribution.
         :rtype:
         """
-        m = self.hybrid_mean()
-        return m
+        return FrechetMean(space=self.manifold).fit(self.d, weights=self.w)
 
     @staticmethod
     def from_distribution(distribution, n_particles):

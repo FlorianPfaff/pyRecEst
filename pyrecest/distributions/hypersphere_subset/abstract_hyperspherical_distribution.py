@@ -25,12 +25,15 @@ from scipy.optimize import minimize
 from .abstract_hypersphere_subset_distribution import (
     AbstractHypersphereSubsetDistribution,
 )
-
+from geomstats.geometry.hypersphere import Hypersphere
 
 class AbstractHypersphericalDistribution(AbstractHypersphereSubsetDistribution):
     """
     This is an abstract class for a distribution over a hypersphere.
     """
+    def __init__(self, dim: int):
+        AbstractHypersphereSubsetDistribution.__init__(self, dim)
+        self.manifold = Hypersphere(dim)
 
     def mean(self):
         """
@@ -235,6 +238,4 @@ class AbstractHypersphericalDistribution(AbstractHypersphereSubsetDistribution):
         )
 
     def get_manifold_size(self):
-        return AbstractHypersphereSubsetDistribution.compute_unit_hypersphere_surface(
-            self.dim
-        )
+        return self.manifold.volume

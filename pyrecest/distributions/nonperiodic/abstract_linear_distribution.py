@@ -33,6 +33,8 @@ from pyrecest.utils.plotting import plot_ellipsoid
 from scipy.integrate import dblquad, nquad, quad
 from scipy.optimize import minimize
 from scipy.stats import chi2
+from geomstats.geometry.euclidean import Euclidean
+
 
 from ..abstract_manifold_specific_distribution import (
     AbstractManifoldSpecificDistribution,
@@ -44,6 +46,7 @@ class AbstractLinearDistribution(AbstractManifoldSpecificDistribution):
         AbstractManifoldSpecificDistribution.__init__(self, dim)
         self._mean_numerical = None
         self._covariance_numerical = None
+        self.manifold = Euclidean(dim)
 
     @property
     def input_dim(self):
