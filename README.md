@@ -2,7 +2,16 @@
 
 *Recursive Bayesian Estimation for Python*
 
-pyRecEst is a Python library designed for recursive Bayesian estimation, which supports numpy and pytorch as backends. It is currently unstable and lacks a lot of features. Use with caution.
+pyRecEst is a Python library tailored for recursive Bayesian estimation, compatible with numpy, pytorch, and jax backends.
+
+Features of pyRecEst include:
+
+* Distribution and Densities: Provides tools for handling distributions and densities across Euclidean spaces and manifolds.
+* Filters and Trackers: Offers a suite of recursive Bayesian estimators (filters or trackers) for both Euclidean spaces and manifolds. This includes capabilities for:
+** Multi-Target Tracking (MTT)
+** Extended Object Tracking (EOT)
+* Evaluation Framework: Contains an evaluation framework to facilitate comparison between different filters.
+* Sampling Methods: Includes methods for sampling of the distributions and generating grids.
 
 ## Usage
 
