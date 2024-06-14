@@ -1,21 +1,27 @@
----
 name: Update requirements.txt
 
 permissions:
   contents: write
+  pull-requests: write
 
 on: # yamllint disable-line rule:truthy
+  # Trigger at every push. Action will also be visible from Pull Requests to main
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
     paths:
       - "pyproject.toml"
+      - "poetry.lock"
 
 jobs:
   update_requirements:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -46,11 +52,35 @@ jobs:
       - name: Prepare commit
         run: sudo chown -Rc $UID .git/
 
-      - name: Commit changes
+      - name: Print git status
+        run: git status
+
+      # Create Pull Request step
+      - name: Create Pull Request with applied fixes
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          commit-message: "Updated requirements.txt and requirements-dev.txt"
+          title: "Update requirements"
+          branch: update-requirements
+          labels: bot
+          base: main
+
+      # Output PR details
+      - name: Create PR output
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+
+      # Push new commit if applicable (for now works only on PR from same repository, not from forks)
+      - name: Prepare commit
+        run: sudo chown -Rc $UID .git/
+
+      - name: Commit and push applied linter fixes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Update requirements.txt"
-          commit_user_name: "github-actions"
-          commit_user_email: "github-actions@github.com"
-          commit_author: "github-actions <github-actions@github.com>"
-          branch: ${{ github.head_ref }}
+          branch: ${{ github.event.pull_request.head.ref || github.head_ref || github.ref }}
+          commit_message: "Update requirements.txt and requirements-dev.txt"
+          commit_user_name: requirements-bot
+          commit_user_email: requirements-bot@florianpfaff.de
