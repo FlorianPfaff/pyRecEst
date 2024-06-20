@@ -7,7 +7,7 @@ from ..abstract_custom_nonperiodic_distribution import (
     AbstractCustomNonPeriodicDistribution,
 )
 from .abstract_linear_distribution import AbstractLinearDistribution
-
+from beartype import beartype
 
 class CustomLinearDistribution(
     AbstractLinearDistribution, AbstractCustomNonPeriodicDistribution
@@ -33,6 +33,20 @@ class CustomLinearDistribution(
             self.shift_by = shift_by
         else:
             self.shift_by = zeros(dim)
+            
+    @property
+    def dim(self) -> int:
+        """Get dimension of the manifold."""
+        return self._dim
+
+    @dim.setter
+    @beartype
+    def dim(self, value: int):
+        """Set dimension of the manifold. Must be a positive integer or None."""
+        if value <= 0:
+            raise ValueError("dim must be a positive integer or None.")
+
+        self._dim = value
 
     def shift(self, shift_by):
         assert self.dim == 1 or self.dim == shift_by.shape[0] and shift_by.ndim == 1
