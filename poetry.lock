@@ -526,37 +526,36 @@ files = [
 
 [[package]]
 name = "jax"
-version = "0.4.30"
+version = "0.4.31"
 description = "Differentiate, compile, and transform Numpy code."
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 files = [
-    {file = "jax-0.4.30-py3-none-any.whl", hash = "sha256:289b30ae03b52f7f4baf6ef082a9f4e3e29c1080e22d13512c5ecf02d5f1a55b"},
-    {file = "jax-0.4.30.tar.gz", hash = "sha256:94d74b5b2db0d80672b61d83f1f63ebf99d2ab7398ec12b2ca0c9d1e97afe577"},
+    {file = "jax-0.4.31-py3-none-any.whl", hash = "sha256:5688703735133d0dc537e99a1d646198a49c9d472d4715fde4bd437c44151bd7"},
+    {file = "jax-0.4.31.tar.gz", hash = "sha256:fd2d470643a0073d822737f0788f71391656af7e62cc5b2e7995ee390ceac287"},
 ]
 
 [package.dependencies]
-jaxlib = ">=0.4.27,<=0.4.30"
+jaxlib = ">=0.4.30,<=0.4.31"
 ml-dtypes = ">=0.2.0"
 numpy = [
     {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
-    {version = ">=1.23.2", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
-    {version = ">=1.22", markers = "python_version < \"3.11\""},
+    {version = ">=1.24", markers = "python_version < \"3.12\""},
 ]
 opt-einsum = "*"
 scipy = [
     {version = ">=1.11.1", markers = "python_version >= \"3.12\""},
-    {version = ">=1.9", markers = "python_version < \"3.12\""},
+    {version = ">=1.10", markers = "python_version < \"3.12\""},
 ]
 
 [package.extras]
-ci = ["jaxlib (==0.4.29)"]
-cuda = ["jax-cuda12-plugin[with-cuda] (==0.4.30)", "jaxlib (==0.4.30)"]
-cuda12 = ["jax-cuda12-plugin[with-cuda] (==0.4.30)", "jaxlib (==0.4.30)"]
-cuda12-local = ["jax-cuda12-plugin (==0.4.30)", "jaxlib (==0.4.30)"]
-cuda12-pip = ["jax-cuda12-plugin[with-cuda] (==0.4.30)", "jaxlib (==0.4.30)"]
-minimum-jaxlib = ["jaxlib (==0.4.27)"]
-tpu = ["jaxlib (==0.4.30)", "libtpu-nightly (==0.1.dev20240617)", "requests"]
+ci = ["jaxlib (==0.4.30)"]
+cuda = ["jax-cuda12-plugin[with-cuda] (==0.4.31)", "jaxlib (==0.4.31)"]
+cuda12 = ["jax-cuda12-plugin[with-cuda] (==0.4.31)", "jaxlib (==0.4.31)"]
+cuda12-local = ["jax-cuda12-plugin (==0.4.31)", "jaxlib (==0.4.31)"]
+cuda12-pip = ["jax-cuda12-plugin[with-cuda] (==0.4.31)", "jaxlib (==0.4.31)"]
+minimum-jaxlib = ["jaxlib (==0.4.30)"]
+tpu = ["jaxlib (==0.4.31)", "libtpu-nightly (==0.1.dev20240729)", "requests"]
 
 [[package]]
 name = "jaxlib"
