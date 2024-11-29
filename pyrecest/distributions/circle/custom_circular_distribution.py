@@ -4,12 +4,12 @@ from math import pi
 # pylint: disable=no-name-in-module,no-member
 from pyrecest.backend import array, mod
 
-from ..abstract_custom_distribution import AbstractCustomDistribution
 from .abstract_circular_distribution import AbstractCircularDistribution
+from ..hypertorus.custom_hypertoroidal_distribution import CustomHypertoroidalDistribution
 
 
 class CustomCircularDistribution(
-    AbstractCustomDistribution, AbstractCircularDistribution
+    CustomHypertoroidalDistribution, AbstractCircularDistribution
 ):
     def __init__(self, f_: Callable, scale_by: float = 1, shift_by: float = 0):
         """
@@ -25,7 +25,7 @@ class CustomCircularDistribution(
             i.e., 2pi-periodic, nonnegative and normalized.
         """
         AbstractCircularDistribution.__init__(self)
-        AbstractCustomDistribution.__init__(self, f_, scale_by)
+        CustomHypertoroidalDistribution.__init__(self, f_, scale_by)
         self.shift_by = shift_by
 
     def pdf(self, xs):
@@ -38,7 +38,7 @@ class CustomCircularDistribution(
         Returns:
             : The value of the pdf at xs.
         """
-        return AbstractCustomDistribution.pdf(self, mod(xs + self.shift_by, 2 * pi))
+        return CustomHypertoroidalDistribution.pdf(self, mod(xs + self.shift_by, 2 * pi))
 
     def integrate(self, integration_boundaries=None) -> float:
         """
