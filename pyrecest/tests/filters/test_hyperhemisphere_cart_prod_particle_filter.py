@@ -1,7 +1,11 @@
 import unittest
 
 import pyrecest.backend  # pylint: disable=no-name-in-module,no-member
-from pyrecest.backend import abs, array, sum  # pylint: disable=no-name-in-module,no-member,redefined-builtin
+from pyrecest.backend import (  # pylint: disable=no-name-in-module,no-member,redefined-builtin
+    abs,
+    array,
+    sum,
+)
 from pyrecest.distributions import VonMisesFisherDistribution
 from pyrecest.filters.hyperhemisphere_cart_prod_particle_filter import (
     HyperhemisphereCartProdParticleFilter,
@@ -22,7 +26,11 @@ class HyperHemisphereCartProdParticleFilterTest(unittest.TestCase):
         )
 
     @unittest.skipIf(
-        pyrecest.backend.__name__ in ("pyrecest.jax", "pyrecest.pytorch"), # pylint: disable=no-name-in-module,no-member
+        pyrecest.backend.__name__
+        in (
+            "pyrecest.jax",
+            "pyrecest.pytorch",
+        ),  # pylint: disable=no-name-in-module,no-member
         reason="Backend not supported'",
     )
     def test_set_state(self):
@@ -39,7 +47,11 @@ class HyperHemisphereCartProdParticleFilterTest(unittest.TestCase):
         pf.filter_state = VonMisesFisherDistribution(array([0.0, 0.0, 0.0, 1.0]), 1.0)
 
     @unittest.skipIf(
-        pyrecest.backend.__name__ in ("pyrecest.jax", "pyrecest.pytorch"),  # pylint: disable=no-name-in-module,no-member
+        pyrecest.backend.__name__
+        in (
+            "pyrecest.jax",
+            "pyrecest.pytorch",
+        ),  # pylint: disable=no-name-in-module,no-member
         reason="Backend not supported'",
     )
     def test_predict(self):
@@ -61,7 +73,11 @@ class HyperHemisphereCartProdParticleFilterTest(unittest.TestCase):
         pf.predict_nonlinear_each_part(identity_function, noise_distribution)
 
     @unittest.skipIf(
-        pyrecest.backend.__name__ in ("pyrecest.jax", "pyrecest.pytorch"),  # pylint: disable=no-name-in-module,no-member
+        pyrecest.backend.__name__
+        in (
+            "pyrecest.jax",
+            "pyrecest.pytorch",
+        ),  # pylint: disable=no-name-in-module,no-member
         reason="Backend not supported'",
     )
     def test_update(self):

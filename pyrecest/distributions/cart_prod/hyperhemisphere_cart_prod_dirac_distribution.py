@@ -33,6 +33,6 @@ class HyperhemisphereCartProdDiracDistribution(AbstractDiracDistribution):
         dist = copy.deepcopy(self)
         for i in range(self.n_hemispheres):
             dist.d[
-                i * self.dim_hemisphere : (i + 1) * self.dim_hemisphere  # noqa: E203 
-                ] = f(self.d[i])
+                i * self.dim_hemisphere : (i + 1) * self.dim_hemisphere  # noqa: E203
+            ] = f(self.d[i])
         return dist

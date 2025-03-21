@@ -1,4 +1,5 @@
 import numpy as np
+from beartype import beartype
 
 # pylint: disable=no-name-in-module,no-member
 from pyrecest.backend import ones  # noqa: F821
@@ -17,7 +18,7 @@ from pyrecest.distributions.hypersphere_subset.von_mises_fisher_distribution imp
 )
 
 from .abstract_particle_filter import AbstractParticleFilter
-from beartype import beartype
+
 
 class HyperhemisphereCartProdParticleFilter(AbstractParticleFilter):
     def __init__(
@@ -60,7 +61,9 @@ class HyperhemisphereCartProdParticleFilter(AbstractParticleFilter):
         self,
         f,
         # Limit noise distribution to ones that support set_mode
-        noise_distribution: HyperhemisphericalWatsonDistribution | VonMisesFisherDistribution | None = None,
+        noise_distribution: (
+            HyperhemisphericalWatsonDistribution | VonMisesFisherDistribution | None
+        ) = None,
         function_is_vectorized: bool = True,
         shift_instead_of_add: bool = True,
     ):
@@ -69,7 +72,8 @@ class HyperhemisphereCartProdParticleFilter(AbstractParticleFilter):
         """
         assert function_is_vectorized, "Only vectorized functions are supported"
         assert (
-            noise_distribution is None or noise_distribution.dim == self.filter_state.dim_hemisphere
+            noise_distribution is None
+            or noise_distribution.dim == self.filter_state.dim_hemisphere
         ), "Noise dimension must match state dimension in Cartesian product"
         assert shift_instead_of_add, "Only shifting is supported"
         for i in range(self.filter_state.n_hemispheres):
