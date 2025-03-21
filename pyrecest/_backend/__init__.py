@@ -243,6 +243,9 @@ BACKEND_ATTRIBUTES = {
     "fft": [  # For pyrecest
         "rfft",
         "irfft",
+        "fftshift",
+        "ifftshift",
+        "fftn",
      ],
 }
 
