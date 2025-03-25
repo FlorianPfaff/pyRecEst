@@ -2,7 +2,7 @@ astropy-iers-data==0.2025.3.17.0.34.53 ; python_version >= "3.10" and python_ver
 astropy==6.1.2 ; python_version >= "3.10" and python_version < "3.13"
 autograd==1.6.2 ; python_version >= "3.10" and python_version < "3.13"
 autopep8==2.3.1 ; python_version >= "3.10" and python_version < "3.13"
-beartype==0.18.5 ; python_version >= "3.10" and python_version < "3.13"
+beartype==0.20.2 ; python_version >= "3.10" and python_version < "3.13"
 certifi==2024.7.4 ; python_version >= "3.10" and python_version < "3.13"
 charset-normalizer==3.3.2 ; python_version >= "3.10" and python_version < "3.13"
 colorama==0.4.6 ; python_version >= "3.10" and python_version < "3.13" and (sys_platform == "win32" or platform_system == "Windows")
