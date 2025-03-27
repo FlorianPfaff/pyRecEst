@@ -56,7 +56,13 @@ def plot_results(
     times_factor = 1000 / data["groundtruths"].shape[1]
     state_dim = data["scenario_config"]["initial_prior"].dim
     # Initialize plots and axis
-    figs = [plt.figure(i) for i in range(3)]
+    figs = []
+    axes_list = []
+    for i in range(3):
+        fig = plt.figure(i)
+        ax = fig.add_subplot(1, 1, 1)
+        figs.append(fig)
+        axes_list.append(ax)
 
     for curr_filter_name in results_grouped.keys():
         # Iterate over all possible names and plot the lines for those that were evaluated
@@ -174,15 +180,10 @@ def plot_results(
     if not_all_warnings_shown:
         print("-----------Reminder: Not all warnings were enabled.-----------")
 
-    axes_list = [None] * 3
-    # Add legend and show plots
-    for fig in figs:
-        plt.figure(fig.number)
-        axes_list[fig.number] = plt.axes
-        plt.legend()
     plt.show()
     # Apply log scales (if chosen to do so)
     apply_log_scale_to_axes(axes_list, plot_log)
+    return figs, axes_list
 
 
 def get_plot_style_for_filter(filter_name):

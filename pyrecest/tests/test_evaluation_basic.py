@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from typing import Optional
 
+import matplotlib
 import numpy as np
 
 # pylint: disable=no-name-in-module,no-member
@@ -62,8 +63,8 @@ class TestEvalationBasics(TestEvalationBase):
         reason="Not supported on this backend",
     )
     def test_plot_results(self):
-        import matplotlib
         from pyrecest.evaluation.plot_results import plot_results
+        matplotlib.pyplot.close('all')  # Ensure all previous plots are closed
 
         matplotlib.use("SVG")  # Set the backend to SVG for better compatibility
         # To generate some results
@@ -71,15 +72,14 @@ class TestEvalationBasics(TestEvalationBase):
         files = os.listdir(self.tmpdirname.name)
         filename = os.path.join(self.tmpdirname.name, files[0])
 
-        plot_results(
+        figs, _ = plot_results(
             filename=filename,
             plot_log=False,
             plot_stds=False,
         )
 
-        for fig_num in matplotlib.pyplot.get_fignums():
-            fig = matplotlib.pyplot.figure(fig_num)
-            fig.savefig(f"test_plot_{fig_num}.png")
+        for fig in figs:
+            fig.savefig(f"test_plot_{fig.number}.png")
 
     @parameterized.expand(
         [
