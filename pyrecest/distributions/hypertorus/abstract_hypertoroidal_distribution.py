@@ -205,8 +205,8 @@ class AbstractHypertoroidalDistribution(AbstractPeriodicDistribution):
             f = self.pdf(vstack((alpha.ravel(), beta.ravel())))
             f = f.reshape(alpha.shape)
             fig = plt.figure()
-            ax = fig.add_subplot(111, projection='3d')
-            surf = ax.plot_surface(alpha, beta, f, cmap='viridis', edgecolor='none')
+            ax = fig.add_subplot(111, projection="3d")
+            surf = ax.plot_surface(alpha, beta, f, cmap="viridis", edgecolor="none")
             fig.colorbar(surf, ax=ax, shrink=0.5, aspect=5)
             AbstractHypertoroidalDistribution.setup_axis_circular("x")
             AbstractHypertoroidalDistribution.setup_axis_circular("y")
@@ -296,4 +296,3 @@ class AbstractHypertoroidalDistribution(AbstractPeriodicDistribution):
             ax.set_zticklabels(tick_labels)
         else:
             raise ValueError("invalid axis")
-
