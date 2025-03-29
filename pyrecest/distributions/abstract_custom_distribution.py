@@ -33,6 +33,11 @@ class AbstractCustomDistribution(AbstractDistributionType):
         """
         self.f = f
         self.scale_by = scale_by
+        
+    @property
+    @abstractmethod
+    def input_dim(self) -> int:
+        pass
 
     def pdf(self, xs):
         """
@@ -42,7 +47,11 @@ class AbstractCustomDistribution(AbstractDistributionType):
         :returns: PDF values at given points.
         """
         # Shifting is something for subclasses
-        return self.scale_by * self.f(xs)
+        assert self.dim == 1 or self.input_dim == xs.shape[-1], "Input dimension of pdf is not as expected"
+        p = self.scale_by * self.f(xs)
+        assert p.ndim <= 1,  "Output format of pdf is not as expected"
+        return p
+    
 
     @abstractmethod
     def integrate(self, integration_boundaries=None):
