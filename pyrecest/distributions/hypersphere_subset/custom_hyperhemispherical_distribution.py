@@ -26,6 +26,10 @@ class CustomHyperhemisphericalDistribution(
         AbstractHyperhemisphericalDistribution.__init__(self, dim=dim)
         AbstractCustomDistribution.__init__(self, f=f, scale_by=scale_by)
 
+    @property
+    def input_dim(self):
+        return self.dim + 1
+    
     def pdf(self, xs):
         """
         Calculate the probability density function at given points.
