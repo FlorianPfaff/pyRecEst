@@ -42,7 +42,9 @@ class AbstractCustomDistribution(AbstractDistributionType):
         :returns: PDF values at given points.
         """
         # Shifting is something for subclasses
-        assert self.dim == 1 or self.input_dim == xs.shape[-1], "Input dimension of pdf is not as expected"
+        assert (
+            self.dim == 1 or self.input_dim == xs.shape[-1]
+        ), "Input dimension of pdf is not as expected"
         return self.scale_by * self.f(xs)
 
     @abstractmethod
