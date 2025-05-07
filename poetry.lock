@@ -72,21 +72,22 @@ test = ["hypothesis", "pytest", "pytest-remotedata"]
 
 [[package]]
 name = "autograd"
-version = "1.7.0"
+version = "1.8.0"
 description = "Efficiently computes derivatives of NumPy code."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "autograd-1.7.0-py3-none-any.whl", hash = "sha256:49680300f842f3a8722b060ac0d3ed7aca071d1ad4d3d38c9fdadafdcc73c30b"},
-    {file = "autograd-1.7.0.tar.gz", hash = "sha256:de743fd368d6df523cd37305dcd171861a9752a144493677d2c9f5a56983ff2f"},
+    {file = "autograd-1.8.0-py3-none-any.whl", hash = "sha256:4ab9084294f814cf56c280adbe19612546a35574d67c574b04933c7d2ecb7d78"},
+    {file = "autograd-1.8.0.tar.gz", hash = "sha256:107374ded5b09fc8643ac925348c0369e7b0e73bbed9565ffd61b8fd04425683"},
 ]
 
 [package.dependencies]
-numpy = "*"
+numpy = "<3"
 
 [package.extras]
 scipy = ["scipy"]
+test = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [[package]]
 name = "autopep8"
