@@ -1,4 +1,4 @@
-astropy-iers-data==0.2025.7.21.0.41.39 ; python_version >= "3.10" and python_version < "3.13"
+astropy-iers-data==0.2025.7.28.0.41.50 ; python_version >= "3.10" and python_version < "3.13"
 astropy==6.1.7 ; python_version >= "3.10" and python_version < "3.13"
 beartype==0.21.0 ; python_version >= "3.10" and python_version < "3.13"
 certifi==2025.7.14 ; python_version >= "3.10" and python_version < "3.13"
