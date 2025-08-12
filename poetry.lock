@@ -56,14 +56,14 @@ typing = ["typing_extensions (>=4.0.0)"]
 
 [[package]]
 name = "astropy-iers-data"
-version = "0.2025.8.4.0.42.59"
+version = "0.2025.8.11.0.41.9"
 description = "IERS Earth Rotation and Leap Second tables for the astropy core package"
 optional = false
 python-versions = ">=3.8"
 groups = ["main", "dev"]
 files = [
-    {file = "astropy_iers_data-0.2025.8.4.0.42.59-py3-none-any.whl", hash = "sha256:b3cc6795083e7efed1d335d24534f0ca204e5950132e41a24b178ea1d659ded9"},
-    {file = "astropy_iers_data-0.2025.8.4.0.42.59.tar.gz", hash = "sha256:a6e8723fe962e2b4103aa7837d021e6857d0bf2b4de28a891cd4c8d1919d4129"},
+    {file = "astropy_iers_data-0.2025.8.11.0.41.9-py3-none-any.whl", hash = "sha256:e5419d191259932413f89609315ad9f185a2977fac219333e23476d4491bfabd"},
+    {file = "astropy_iers_data-0.2025.8.11.0.41.9.tar.gz", hash = "sha256:029c3237993fa9689f8543872dfe750393227261111edad8173fdd06d59f1c84"},
 ]
 
 [package.extras]
