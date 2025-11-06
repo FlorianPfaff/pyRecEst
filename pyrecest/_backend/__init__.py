@@ -4,6 +4,8 @@ Lead authors: Johan Mathe and Niklas Koep.
 """
 
 import importlib
+import importlib.abc
+import importlib.machinery
 import logging
 import os
 import sys
@@ -247,25 +249,31 @@ BACKEND_ATTRIBUTES = {
 }
 
 
-class BackendImporter:
-    """Importer class to create the backend module."""
+class BackendImporter(importlib.abc.MetaPathFinder, importlib.abc.Loader):
+    """
+    Meta path finder and loader for dynamically creating backend modules.
 
-    def __init__(self, path):
-        self._path = self.name = path
-        self.loader = self
+    Implements the modern PEP 451 import protocol (create_module / exec_module).
+
+    Responsible for intercepting imports of 'pyrecest.backend' and redirecting
+    them to dynamically constructed backend implementations (e.g. numpy, torch).
+    """
+
+    def __init__(self, path: str):
+        self._path = path
 
     @staticmethod
-    def _import_backend(backend_name):
+    def _import_backend(backend_name: str):
         try:
             return importlib.import_module(f"pyrecest._backend.{backend_name}")
-        except ModuleNotFoundError:
-            raise RuntimeError(f"Unknown backend '{backend_name}'")
+        except ModuleNotFoundError as e:
+            raise RuntimeError(f"Unknown backend '{backend_name}'") from e
 
-    def _create_backend_module(self, backend_name):
+    def _create_backend_module(self, backend_name: str):
         backend = self._import_backend(backend_name)
 
         new_module = types.ModuleType(self._path)
-        new_module.__file__ = backend.__file__
+        new_module.__file__ = getattr(backend, "__file__", None)
 
         for module_name, attributes in BACKEND_ATTRIBUTES.items():
             if module_name:
@@ -276,60 +284,52 @@ class BackendImporter:
                         f"Backend '{backend_name}' exposes no '{module_name}' module"
                     ) from None
                 new_submodule = types.ModuleType(f"{self._path}.{module_name}")
-                new_submodule.__file__ = submodule.__file__
+                new_submodule.__file__ = getattr(submodule, "__file__", None)
                 setattr(new_module, module_name, new_submodule)
             else:
                 submodule = backend
                 new_submodule = new_module
+
             for attribute_name in attributes:
                 try:
                     submodule_ = submodule
                     if module_name == "" and not hasattr(submodule, attribute_name):
                         submodule_ = common
                     attribute = getattr(submodule_, attribute_name)
-
                 except AttributeError:
                     if module_name:
-                        error = (
+                        raise RuntimeError(
                             f"Module '{module_name}' of backend '{backend_name}' "
-                            f"has no attribute '{attribute_name}'"
-                        )
+                            f"does not define the required attribute '{attribute_name}'."
+                        ) from None
                     else:
-                        error = (
-                            f"Backend '{backend_name}' has no "
-                            f"attribute '{attribute_name}'"
-                        )
-
-                    raise RuntimeError(error) from None
+                        raise RuntimeError(
+                            f"Backend '{backend_name}' does not define the required "
+                            f"attribute '{attribute_name}'."
+                        ) from None
                 else:
                     setattr(new_submodule, attribute_name, attribute)
 
         return new_module
 
-    def find_module(self, fullname, path=None):
-        """Find module."""
-        if self._path != fullname:
+    def find_spec(self, fullname, path=None, target=None):
+        """Find a module spec for the dynamically created backend."""
+        if fullname != self._path:
             return None
-        return self
+        return importlib.machinery.ModuleSpec(fullname, self)
 
-    def load_module(self, fullname):
-        """Load module."""
-        if fullname in sys.modules:
-            return sys.modules[fullname]
-
+    def create_module(self, spec):
+        """Create the module object but don’t execute it yet."""
         module = self._create_backend_module(BACKEND_NAME)
-        module.__name__ = f"pyrecest.{BACKEND_NAME}"
         module.__loader__ = self
-        sys.modules[fullname] = module
-
-        module.set_default_dtype("float64")
-
-        logging.info(f"Using {BACKEND_NAME} backend")
+        module.__spec__ = spec
         return module
 
-    def find_spec(self, fullname, path=None, target=None):
-        """Find module."""
-        return self.find_module(fullname, path=path)
+    def exec_module(self, module):
+        """Execute the module (initialize attributes, types, etc.)."""
+        if hasattr(module, "set_default_dtype"):
+            module.set_default_dtype("float64")
+        logging.info(f"Using {BACKEND_NAME} backend")
 
-
-sys.meta_path.append(BackendImporter("pyrecest.backend"))
+# Insert at the *front* of sys.meta_path to ensure it takes precedence
+sys.meta_path.insert(0, BackendImporter("pyrecest.backend"))
