@@ -18,6 +18,7 @@ jobs:
     strategy:
       matrix:
         backend: [numpy, pytorch, jax]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     permissions:
       checks: write
       pull-requests: write
@@ -29,7 +30,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
@@ -37,13 +38,13 @@ jobs:
           python -m pip install poetry
           poetry env use python
           poetry install --extras "healpy_support"
-
+          
       - name: Install pytorch specific dependencies
         if: ${{ matrix.backend == 'pytorch' }}
         run: |
           poetry install --extras "healpy_support" --extras "pytorch_support"
           poetry run python -m pip install torch==2.1.0+cpu torchaudio==2.1.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
-
+          
       - name: Run tests
         run: |
           export PYRECEST_BACKEND=${{ matrix.backend }}
