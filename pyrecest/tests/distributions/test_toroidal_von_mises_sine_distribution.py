@@ -14,6 +14,7 @@ from pyrecest.distributions.hypertorus.toroidal_von_mises_sine_distribution impo
     ToroidalVonMisesSineDistribution,
 )
 
+matplotlib.pyplot.close("all")
 matplotlib.use("Agg")
 
 

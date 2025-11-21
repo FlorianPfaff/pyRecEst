@@ -11,8 +11,8 @@ class TestAbstractDiracDistribution(unittest.TestCase):
         if dirac_cls is None:
             return  # Prevent failure if no classes are set
 
-        matplotlib.use("Agg")
         matplotlib.pyplot.close("all")
+        matplotlib.use("Agg")
 
         # Seed the random number generator for reproducibility
         random.seed(0)

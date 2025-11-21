@@ -14,6 +14,7 @@ from pyrecest.distributions import (
     GaussianDistribution,
 )
 
+matplotlib.pyplot.close("all")
 matplotlib.use("Agg")
 
 

@@ -26,7 +26,7 @@ from pyrecest.backend import (
 )
 
 # pylint: disable=E0611
-from scipy.special import sph_harm
+from scipy.special import sph_harm_y
 
 from .abstract_hyperspherical_distribution import AbstractHypersphericalDistribution
 from .abstract_sphere_subset_distribution import AbstractSphereSubsetDistribution
@@ -53,9 +53,7 @@ class SphericalHarmonicsDistributionComplex(AbstractSphericalHarmonicsDistributi
         for n_curr in range(self.coeff_mat.shape[0]):
             for m_curr in range(-n_curr, n_curr + 1):
                 # Evaluate it for all query points at once
-                # scipy's sph_harm uses the opposite convention for phi and theta!
-                # This is correct since sph_harm expects theta (our phi) and then phi (our theta)
-                y_lm = sph_harm(m_curr, n_curr, phi, theta)
+                y_lm = sph_harm_y(n_curr, m_curr, theta, phi)
                 vals += self.coeff_mat[n_curr, n_curr + m_curr] * y_lm
 
         if self.assert_real:
@@ -166,14 +164,14 @@ class SphericalHarmonicsDistributionComplex(AbstractSphericalHarmonicsDistributi
         def real_part(phi, theta, n, m):
             return real(
                 fun_with_trans(array(phi), array(theta))
-                * conj(array(sph_harm(m, n, phi, theta)))
+                * conj(array(sph_harm_y(n, m, theta, phi)))
                 * sin(theta)
             )
 
         def imag_part(phi, theta, n, m):
             return imag(
                 fun_with_trans(array(phi), array(theta))
-                * conj(array(sph_harm(m, n, phi, theta)))
+                * conj(array(sph_harm_y(n, m, theta, phi)))
                 * sin(theta)
             )
 

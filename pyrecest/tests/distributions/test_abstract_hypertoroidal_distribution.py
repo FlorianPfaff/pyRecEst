@@ -11,6 +11,7 @@ from pyrecest.distributions.hypertorus.toroidal_wrapped_normal_distribution impo
     ToroidalWrappedNormalDistribution,
 )
 
+matplotlib.pyplot.close("all")
 matplotlib.use("Agg")
 
 

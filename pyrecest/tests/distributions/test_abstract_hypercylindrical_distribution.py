@@ -64,8 +64,8 @@ class AbstractHypercylindricalDistributionTest(unittest.TestCase):
         reason="Not supported on this backend",
     )
     def test_plot(self):
-        matplotlib.use("Agg")
         matplotlib.pyplot.close("all")
+        matplotlib.use("Agg")
         hwn = PartiallyWrappedNormalDistribution(
             array([1.0, 2.0]), array([[2.0, 0.3], [0.3, 1.0]]), 1
         )
