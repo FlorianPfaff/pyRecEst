@@ -11,6 +11,7 @@ from pyrecest.distributions import (
     VonMisesFisherDistribution,
 )
 
+matplotlib.pyplot.close("all")
 matplotlib.use("Agg")
 
 

@@ -160,13 +160,18 @@ class TestEvalationBasics(TestEvalationBase):
             )
         )
 
+    def _generate_simulated_scenario_data(self):
+        """Helper that actually generates the data and returns it."""
+        self.simulation_param["all_seeds"] = range(self.n_runs_default)
+        groundtruths, measurements = generate_simulated_scenarios(self.simulation_param)
+        return groundtruths, measurements
+
     @unittest.skipIf(
         pyrecest.backend.__backend_name__ == "jax",
         reason="Not supported on this backend",
     )
     def test_generate_simulated_scenario(self):
-        self.simulation_param["all_seeds"] = range(self.n_runs_default)
-        groundtruths, measurements = generate_simulated_scenarios(self.simulation_param)
+        groundtruths, measurements = self._generate_simulated_scenario_data()
 
         self.assertEqual(
             np.shape(groundtruths), (self.n_runs_default, self.n_timesteps_default)
@@ -174,7 +179,6 @@ class TestEvalationBasics(TestEvalationBase):
         self.assertEqual(
             np.shape(measurements), (self.n_runs_default, self.n_timesteps_default)
         )
-        return groundtruths, measurements
 
     def test_determine_all_deviations(self):
         def dummy_extract_mean(x):
@@ -341,7 +345,7 @@ class TestEvalationBasics(TestEvalationBase):
         reason="Not supported on this backend",
     )
     def test_iterate_configs_and_runs(self, filter_configs):
-        groundtruths, measurements = self.test_generate_simulated_scenario()
+        groundtruths, measurements = self._generate_simulated_scenario_data()
         evaluation_config = {
             "plot_each_step": False,
             "convert_to_point_estimate_during_runtime": False,

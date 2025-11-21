@@ -13,7 +13,7 @@ from pyrecest.backend import (
 )
 
 # pylint: disable=E0611
-from scipy.special import sph_harm
+from scipy.special import sph_harm_y
 
 from .abstract_sphere_subset_distribution import AbstractSphereSubsetDistribution
 from .abstract_spherical_harmonics_distribution import (
@@ -29,7 +29,7 @@ class SphericalHarmonicsDistributionReal(AbstractSphericalHarmonicsDistribution)
 
     @staticmethod
     def real_spherical_harmonic_basis_function(n, m, theta, phi):
-        y_lm = sph_harm(m, n, phi, theta)
+        y_lm = sph_harm_y(n, m, theta, phi)
 
         if m < 0:
             y_nm_real = -sqrt(2.0) * imag(y_lm)

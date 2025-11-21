@@ -85,8 +85,10 @@ class AbstractHypertoroidalDistribution(AbstractPeriodicDistribution):
     def integrate_fun_over_domain_part(f: Callable, integration_boundaries) -> float:
         integration_boundaries = atleast_2d(integration_boundaries)
         assert integration_boundaries.shape[-1] == 2
+        def scalar_f(*args):
+            return f(*args).item()  # ensures 0-dim scalar
 
-        return nquad(f, integration_boundaries)[0]
+        return nquad(scalar_f, integration_boundaries)[0]
 
     def integrate_numerically(self, integration_boundaries=None):
         assert (
